@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
                     String user = envelope.getPayload().get("user").asText();
 
-                    if(user == null || user.isEmpty()){
+                    if(user == null || user.isEmpty() || user.equalsIgnoreCase("null")){
                         user = "anonymous";
                     }
 
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         if (!message.isEmpty()){
             try {
                 ObjectNode node = new ObjectNode(JsonNodeFactory.instance)
-                        .put("name", "Android")
+                        .put("user", "Android")
                         .put("body", message);
 
                 channel.push("new:msg", node);
@@ -125,8 +125,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
 
     public void updateMessages(final String user, final String message){
